@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FielFirma({ cadena, proxyUrl, mostrarFirma, onFirma }) {
+function FielFirma({ cadena, proxyUrl, mostrarFirma, confidencial, onFirma }) {
   const classes = useStyles();
   const [contrasena, setContrasena] = useState('');
   const [typedContrasena, setTypedContrasena] = useState('');
@@ -54,6 +54,7 @@ function FielFirma({ cadena, proxyUrl, mostrarFirma, onFirma }) {
     llavePrivada,
     contrasena,
     cadena,
+    confidencial,
     proxyUrl,
   });
 
@@ -168,6 +169,7 @@ function FielFirma({ cadena, proxyUrl, mostrarFirma, onFirma }) {
 FielFirma.propTypes = {
   cadena: PropTypes.string,
   onFirma: PropTypes.func,
+  confidencial: PropTypes.bool,
   mostrarFirma: PropTypes.bool,
   proxyUrl: PropTypes.string,
 };
@@ -175,6 +177,7 @@ FielFirma.propTypes = {
 FielFirma.defaultProps = {
   onFirma: console.log,
   mostrarFirma: false,
+  confidencial: false,
 };
 
 export default FielFirma;

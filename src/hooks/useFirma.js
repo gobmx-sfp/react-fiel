@@ -10,6 +10,7 @@ const useFirma = ({
   llavePrivada,
   contrasena,
   cadena,
+  confidencial,
   proxyUrl,
 }) => {
   const [{ status, issuer }, setOcspStatus] = useState({});
@@ -62,6 +63,7 @@ const useFirma = ({
         llavePublica,
         llavePrivadaDesencriptada,
         cadena,
+        confidencial,
       })
         .then(setFirma)
         .catch((err) => {
