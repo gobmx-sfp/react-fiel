@@ -62,7 +62,7 @@ function LlaveInput({
       onChange={handleFile}
     >
       {children || (
-        <Button variant="contained" component="span" {...buttonProps}>
+        <Button variant="outlined" component="span" {...buttonProps}>
           {label || defaultLabel}
         </Button>
       )}

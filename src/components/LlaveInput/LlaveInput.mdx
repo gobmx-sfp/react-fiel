@@ -13,8 +13,64 @@ Este componente muestra un `<input>` para ingresar un archivo de llave (pública
 
 <Props of={LlaveInput} />
 
-## Ejemplo de uso
+## Ejemplos
+
+### Llave pública
 
 <Playground>
-  <LlaveInput tipo="publica" onChanged={() => {}} />
+  <LlaveInput
+    tipo="publica"
+    onChanged={({ fileName, content }) => {
+      console.info(
+        `Se seleccionó el archivo '${fileName}' y contiene la llave: '${content}'`
+      );
+    }}
+  />
+</Playground>
+
+### Llave privada
+
+<Playground>
+  <LlaveInput
+    tipo="privada"
+    onChanged={({ fileName, content }) => {
+      console.info(
+        `Se seleccionó el archivo '${fileName}' y contiene la llave: '${content}'`
+      );
+    }}
+  />
+</Playground>
+
+### Botón personalizado
+
+`buttonProps` acepta todos los props del componente [`<Button>` de Material-UI](https://material-ui.com/api/button/)
+
+<Playground>
+  <LlaveInput
+    tipo="privada"
+    label="Selecciona archivo .cer"
+    buttonProps={{
+      variant: 'contained',
+      size: 'large',
+      color: 'primary'
+    }}
+    onChanged={({ fileName, content }) => {
+      console.info(
+        `Se seleccionó el archivo '${fileName}' y contiene la llave: '${content}'`
+      );
+    }}
+  />
+</Playground>
+
+### Redefinir campo
+
+<Playground>
+  <LlaveInput
+    tipo="privada"
+    onChanged={({ fileName, content }) => {
+      console.info(`Se seleccionó el archivo '${fileName}' y contiene la llave: '${content}'`)
+    }}
+  >
+    🔒<button>Selecciona archivo con llave pública</button>
+  </LlaveInput>
 </Playground>

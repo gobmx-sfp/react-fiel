@@ -7,7 +7,7 @@ import LlaveInput from '../LlaveInput';
 import useFirma from '../../hooks/useFirma';
 
 const Campo = styled.div`
-  padding: 1em 3em;
+  padding: 0.5em 0;
 `;
 
 function FielFirma({ proxyUrl }) {
@@ -45,7 +45,9 @@ function FielFirma({ proxyUrl }) {
             llavePublicaFileName &&
             `${llavePublicaFileName}${!statusLoading && ' (Seleccionar otro)'}`
           }
-          buttonProps={{ color: 'default', disabled: statusLoading }}
+          buttonProps={{
+            disabled: statusLoading,
+          }}
         />
         {/* {!loading && llavePublicaFile.fileName && (
           <Button>Seleccionar otro</Button>
