@@ -20,13 +20,13 @@ COPY public public
 COPY webpack.config.js .babelrc doczrc.js ./
 
 # Construir documentación
-RUN npm run docz:build -- --dest dist
+RUN npm run docz:build
 
 # Fase II: Ejecución
 FROM nginx:1.17-alpine
 
 # Copiar distribuible a directorio configurado en nginx
-COPY --from=build /app/dist /www
+COPY --from=build /app/.docz/dist /www
 
 # Copiar template de configuración de servidor web Nginx
 COPY site.conf.template .
