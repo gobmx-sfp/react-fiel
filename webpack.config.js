@@ -32,12 +32,13 @@ module.exports = {
   },
   resolve: {
     extensions: ['.scss', '.js', '.json', '.png', '.gif', '.jpg', '.svg'],
-    // alias: { 'react-dom': '@hot-loader/react-dom' },
+    alias: { 'react-dom': '@hot-loader/react-dom' },
   },
   output: {
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '',
     filename: 'react-fiel.js',
+    library: '@gobmx-sfp/react-fiel',
     libraryTarget: 'umd',
   },
 };
