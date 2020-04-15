@@ -1,2 +1,4 @@
-export { default as LlaveInput } from './LlaveInput';
-// export { default as LlaveInput } from './LlaveInput';
+export { LlaveInput } from './LlaveInput';
+export { FielFirma } from './FielFirma';
+
+export default FielFirma;

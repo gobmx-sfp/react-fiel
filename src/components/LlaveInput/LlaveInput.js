@@ -17,6 +17,7 @@ const tipos = {
     accept: [
       // 'application/vnd.mophun.certificate',
       // 'application/pem-certificate-chain',
+      'application/pkcs8',
       'application/pkix-cert',
     ],
     defaultLabel: 'Seleccionar archivo .key (Llave privada)',
