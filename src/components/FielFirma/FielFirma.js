@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FielFirma({ cadena, proxyUrl, onFirma }) {
+function FielFirma({ cadena, proxyUrl, mostrarFirma, onFirma }) {
   const classes = useStyles();
   const [contrasena, setContrasena] = useState('');
   const [typedContrasena, setTypedContrasena] = useState('');
@@ -62,6 +62,12 @@ function FielFirma({ cadena, proxyUrl, onFirma }) {
       onFirma(firma);
     }
   }, [firma]);
+
+  useEffect(() => {
+    if (llaveError) {
+      setTypedContrasena('');
+    }
+  }, [llaveError, setTypedContrasena]);
 
   return (
     <form className={classes.root}>
@@ -110,18 +116,13 @@ function FielFirma({ cadena, proxyUrl, onFirma }) {
           tipo="privada"
           onChanged={setLlavePrivadaFile}
           label={
-            llavePublicaFileName
+            llavePrivadaFileName
               ? 'Seleccionar otro'
               : 'Seleccionar archivo .key'
           }
           buttonProps={{ color: 'default' }}
         />
-        {/* {firmaError && (
-          <Alert severity="error">
-            <em>{llavePrivadaFileName}: </em>
-            {firmaError.toString()}
-          </Alert>
-        )} */}
+        {llavePrivadaFileName && <FormLabel>{llavePrivadaFileName}</FormLabel>}
       </FormControl>
 
       {llavePrivadaFileName && (
@@ -154,7 +155,7 @@ function FielFirma({ cadena, proxyUrl, onFirma }) {
         Firmar
       </Button>
 
-      {firma && (
+      {mostrarFirma && firma && (
         <Alert severity="info">
           <AlertTitle>Firma</AlertTitle>
           <code>{firma}</code>
@@ -167,13 +168,13 @@ function FielFirma({ cadena, proxyUrl, onFirma }) {
 FielFirma.propTypes = {
   cadena: PropTypes.string,
   onFirma: PropTypes.func,
-  showFirma: PropTypes.bool,
+  mostrarFirma: PropTypes.bool,
   proxyUrl: PropTypes.string,
 };
 
 FielFirma.defaultProps = {
-  showFirma: false,
   onFirma: console.log,
+  mostrarFirma: false,
 };
 
 export default FielFirma;
