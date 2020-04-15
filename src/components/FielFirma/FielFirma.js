@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FielFirma({ proxyUrl, cadena = 'mensaje' }) {
+function FielFirma({ cadena, proxyUrl }) {
   const classes = useStyles();
   const [contrasena, setContrasena] = useState('');
   const [typedContrasena, setTypedContrasena] = useState('');
@@ -55,6 +55,7 @@ function FielFirma({ proxyUrl, cadena = 'mensaje' }) {
     llavePrivada,
     contrasena,
     cadena,
+    proxyUrl,
   });
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -151,6 +152,7 @@ function FielFirma({ proxyUrl, cadena = 'mensaje' }) {
 }
 
 FielFirma.propTypes = {
+  cadena: PropTypes.string,
   proxyUrl: PropTypes.string,
 };
 

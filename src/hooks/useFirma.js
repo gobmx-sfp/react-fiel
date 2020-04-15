@@ -5,7 +5,13 @@ import {
   desencriptarLlavePrivada,
 } from '@gobmx-sfp/firmafiel';
 
-const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
+const useFirma = ({
+  llavePublica,
+  llavePrivada,
+  contrasena,
+  cadena,
+  proxyUrl,
+}) => {
   const [{ status, issuer }, setOcspStatus] = useState({});
   const [firma, setFirma] = useState();
   const [statusLoading, setStatusLoading] = useState(false);
@@ -18,11 +24,10 @@ const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
   /* Verificar certificado con protocolo OCSP */
   useEffect(() => {
     if (llavePublica) {
-      console.log('cabiando llave');
       setStatusError();
       setStatusLoading(true);
       setOcspStatus({});
-      verificarValidez(llavePublica)
+      verificarValidez(llavePublica, proxyUrl)
         .then(setOcspStatus)
         .catch((err) => {
           console.warn(err);
@@ -49,7 +54,7 @@ const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
 
   /* Firmar cadena con certificado y llave privada */
   useEffect(() => {
-    if (llavePublica && llavePrivadaDesencriptada && cadena && !statusLoading) {
+    if (llavePublica && llavePrivadaDesencriptada && cadena) {
       setFirmaError();
       setFirma();
       setFirmaLoading(true);
@@ -61,13 +66,13 @@ const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
         .then(setFirma)
         .catch((err) => {
           console.warn(err);
-          setFirmaError(new Error(err));
+          setFirmaError(err);
         })
         .finally(() => {
           setFirmaLoading(false);
         });
     }
-  }, [llavePublica, llavePrivadaDesencriptada, cadena, statusLoading]);
+  }, [llavePublica, llavePrivadaDesencriptada, cadena]);
 
   return {
     firma,
