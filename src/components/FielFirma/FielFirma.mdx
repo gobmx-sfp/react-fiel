@@ -16,5 +16,8 @@ Este componente permite firmar una cadena a través de un par de llaves público
 ## Ejemplos
 
 <Playground>
-  <FielFirma cadena="Mensaje a firmar" />
+  <FielFirma
+    cadena="Mensaje a firmar"
+    onFirma={(firma) => console.log(`Firma de la cadena: ${firma}`)}
+  />
 </Playground>
