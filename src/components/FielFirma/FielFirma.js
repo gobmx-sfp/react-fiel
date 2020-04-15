@@ -24,7 +24,17 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
+    boxShadow: '0 3px 5px 2px rgba(127, 127, 127, .3)',
+    width: '95%',
+    borderRadius: 15,
+    padding: '30px 15px 30px 15px',
+    border: 0,
+    color: 'white',
   },
+  llaveInput:{
+    margin: theme.spacing(1),
+    color: 'red',
+  }
 }));
 
 function FielFirma({ cadena, proxyUrl, mostrarFirma, confidencial, onFirma }) {
@@ -84,6 +94,7 @@ function FielFirma({ cadena, proxyUrl, mostrarFirma, confidencial, onFirma }) {
           buttonProps={{
             disabled: statusLoading,
           }}
+          className={classes.llaveInput}
         />
         {statusLoading && <CircularProgress />}
         {statusError && (
