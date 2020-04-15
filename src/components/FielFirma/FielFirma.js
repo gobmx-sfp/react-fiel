@@ -2,24 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { CircularProgress } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import LlaveInput from '../LlaveInput';
-// import Firmafiel from '@gobmx-sfp/firmafiel';
 import useFirma from '../../hooks/useFirma';
-
-const Caja = styled.div``;
-
-const ErrorCampo = styled.div`
-  background: red;
-  padding: 0.4em 2em;
-  margin: 10px 0;
-  color: white;
-`;
 
 const Campo = styled.div`
   padding: 1em 3em;
 `;
 
-// Components are functions, and they must start with a capital letter
 function FielFirma({ proxyUrl }) {
   const { contrasena, setContrasena } = useState();
   const [
@@ -34,6 +24,7 @@ function FielFirma({ proxyUrl }) {
     firma,
     isValid,
     isRevoked,
+    isUnknown,
     statusLoading,
     firmaLoading,
     statusError,
@@ -45,7 +36,7 @@ function FielFirma({ proxyUrl }) {
   });
 
   return (
-    <Caja>
+    <>
       <Campo>
         <LlaveInput
           tipo="publica"
@@ -54,19 +45,31 @@ function FielFirma({ proxyUrl }) {
             llavePublicaFileName &&
             `${llavePublicaFileName}${!statusLoading && ' (Seleccionar otro)'}`
           }
-          buttonProps={{ color: 'success', disabled: statusLoading }}
+          buttonProps={{ color: 'default', disabled: statusLoading }}
         />
         {/* {!loading && llavePublicaFile.fileName && (
           <Button>Seleccionar otro</Button>
         )} */}
         {statusLoading && <CircularProgress />}
         {statusError && (
-          <ErrorCampo>
+          <Alert severity="success">
             <em>{llavePublicaFileName}: </em>
-            {statusError.toString()}
-          </ErrorCampo>
+            {/* {statusError.toString()} */}
+          </Alert>
         )}
-        {isValid && <div>Certificado válido</div>}
+        {isValid ? (
+          <Alert severity="success">
+            El certificado es válido y está vigente
+          </Alert>
+        ) : isRevoked ? (
+          <Alert severity="warning">
+            Este certificado expiró o ha sido revocado
+          </Alert>
+        ) : isUnknown ? (
+          <Alert severity="warning">
+            Este certificado expiró o ha sido revocado
+          </Alert>
+        ) : null}
       </Campo>
 
       <Campo>
@@ -80,13 +83,13 @@ function FielFirma({ proxyUrl }) {
           buttonProps={{ color: 'default' }}
         />
         {firmaError && (
-          <ErrorCampo>
+          <Alert severity="warning">
             <em>{llavePrivadaFileName}: </em>
             {firmaError.toString()}
-          </ErrorCampo>
+          </Alert>
         )}
       </Campo>
-    </Caja>
+    </>
   );
 }
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { verificarValidez, firmarCadena } from '@gobmx-sfp/firmafiel';
 
 const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
-  const [{ status, issuer }, settOcspStatus] = useState({});
+  const [{ status, issuer }, setOcspStatus] = useState({});
   const [firma, setFirma] = useState();
   const [statusLoading, setStatusLoading] = useState(false);
   const [statusError, setStatusError] = useState();
@@ -15,17 +15,9 @@ const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
       console.log('cabiando llave');
       setStatusError();
       setStatusLoading(true);
-      settOcspStatus({});
+      setOcspStatus({});
       verificarValidez(llavePublica)
-        .then((ocspStatus) => {
-          if (settOcspStatus.status === 'unknown') {
-            setStatusError(
-              new Error('El certificado no es reconocido por el SAT')
-            );
-          } else {
-            settOcspStatus(ocspStatus);
-          }
-        })
+        .then(setOcspStatus)
         .catch((err) => {
           console.warn(err);
           setStatusError(new Error('Certificado inválido o ilegible'));
@@ -78,14 +70,13 @@ const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
     status,
     isValid: status === 'good',
     isRevoked: status === 'revoked',
+    isUnknown: status === 'unknown',
     issuer,
-    // subject,
     statusLoading,
     statusError,
     firmaLoading,
     firmaError,
-    // loading: statusLoading || firmaLoading,
-    // error: !!errors.length,
+    loading: statusLoading || firmaLoading,
   };
 };
 
