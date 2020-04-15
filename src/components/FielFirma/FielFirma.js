@@ -45,7 +45,6 @@ function FielFirma({ cadena, proxyUrl, mostrarFirma, confidencial, onFirma }) {
     isRevoked,
     isUnknown,
     statusLoading,
-    firmaLoading,
     statusError,
     llaveError,
     firmaError,
@@ -160,6 +159,12 @@ function FielFirma({ cadena, proxyUrl, mostrarFirma, confidencial, onFirma }) {
         <Alert severity="info">
           <AlertTitle>Firma</AlertTitle>
           <code>{firma}</code>
+        </Alert>
+      )}
+
+      {firmaError && (
+        <Alert severity="error">
+          <code>Error al firmar cadena: {firmaError}</code>
         </Alert>
       )}
     </form>

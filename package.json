@@ -1,5 +1,5 @@
 {
-  "name": "react-fiel",
+  "name": "@gobmx-sfp/react-fiel",
   "version": "1.0.0",
   "description": "Librería de componentes React para firma electrónica con FIEL",
   "main": "dist/react-fiel.js",
