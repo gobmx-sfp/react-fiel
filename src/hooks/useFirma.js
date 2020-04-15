@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
-import { verificarValidez, firmarCadena } from '@gobmx-sfp/firmafiel';
+import {
+  verificarValidez,
+  firmarCadena,
+  desencriptarLlavePrivada,
+} from '@gobmx-sfp/firmafiel';
 
 const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
   const [{ status, issuer }, setOcspStatus] = useState({});
   const [firma, setFirma] = useState();
   const [statusLoading, setStatusLoading] = useState(false);
   const [statusError, setStatusError] = useState();
+  const [llaveError, setLlaveError] = useState();
+  const [llavePrivadaDesencriptada, setLlavePrivadaDesencriptada] = useState();
   const [firmaError, setFirmaError] = useState();
   const [firmaLoading, setFirmaLoading] = useState(false);
 
@@ -28,22 +34,28 @@ const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
     }
   }, [llavePublica]);
 
+  useEffect(() => {
+    if (llavePrivada && contrasena) {
+      try {
+        const llave = desencriptarLlavePrivada(llavePrivada, contrasena);
+        setLlavePrivadaDesencriptada(llave);
+        setLlaveError(llave ? null : new Error('Contraseña incorrecta'));
+      } catch (err) {
+        console.warn(err);
+        setLlaveError(err);
+      }
+    }
+  }, [llavePrivada, contrasena]);
+
   /* Firmar cadena con certificado y llave privada */
   useEffect(() => {
-    if (
-      llavePublica &&
-      llavePrivada &&
-      contrasena &&
-      cadena &&
-      !statusLoading
-    ) {
+    if (llavePublica && llavePrivadaDesencriptada && cadena && !statusLoading) {
       setFirmaError();
       setFirma();
       setFirmaLoading(true);
       firmarCadena({
         llavePublica,
-        llavePrivada,
-        contrasena,
+        llavePrivadaDesencriptada,
         cadena,
       })
         .then(setFirma)
@@ -55,16 +67,8 @@ const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
           setFirmaLoading(false);
         });
     }
-  }, [llavePublica, llavePrivada, contrasena, cadena, statusLoading]);
+  }, [llavePublica, llavePrivadaDesencriptada, cadena, statusLoading]);
 
-  // console.log(
-  //   'loading',
-  //   loading,
-  //   'signing',
-  //   signingResult,
-  //   'validation',
-  //   certificateStatus
-  // );
   return {
     firma,
     status,
@@ -76,6 +80,7 @@ const useFirma = ({ llavePublica, llavePrivada, contrasena, cadena }) => {
     statusError,
     firmaLoading,
     firmaError,
+    llaveError,
     loading: statusLoading || firmaLoading,
   };
 };

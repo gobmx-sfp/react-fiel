@@ -24,7 +24,6 @@ const tipos = {
 };
 function LlaveInput({
   tipo,
-  constrasena,
   label,
   onChanged,
   onError,
