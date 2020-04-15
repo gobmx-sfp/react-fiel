@@ -147,6 +147,13 @@ function FielFirma({ cadena, proxyUrl }) {
       >
         Firmar
       </Button>
+
+      {firma && (
+        <Alert severity="info">
+          <AlertTitle>Firma</AlertTitle>
+          <code>{firma}</code>
+        </Alert>
+      )}
     </form>
   );
 }
