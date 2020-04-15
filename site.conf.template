@@ -1,0 +1,10 @@
+# Configuración de servidor web
+# usado en staging/producción
+server {
+  listen ${PORT};
+  location / {
+    root /www;
+    index index.html;
+    try_files $uri $uri/ /index.html =404;
+  }
+}
