@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FielFirma({ cadena, proxyUrl }) {
+function FielFirma({ cadena, proxyUrl, onFirma }) {
   const classes = useStyles();
   const [contrasena, setContrasena] = useState('');
   const [typedContrasena, setTypedContrasena] = useState('');
@@ -57,8 +57,15 @@ function FielFirma({ cadena, proxyUrl }) {
     cadena,
     proxyUrl,
   });
+
+  useEffect(() => {
+    if (firma) {
+      setFirma(firma);
+    }
+  }, [firma]);
+
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form className={classes.root}>
       <FormControl fullWidth className={classes.formControl}>
         <FormLabel>Certificado público</FormLabel>
         <LlaveInput
@@ -160,7 +167,14 @@ function FielFirma({ cadena, proxyUrl }) {
 
 FielFirma.propTypes = {
   cadena: PropTypes.string,
+  onFirma: PropTypes.func,
+  showFirma: PropTypes.bool,
   proxyUrl: PropTypes.string,
+};
+
+FielFirma.defaultProps = {
+  showFirma: false,
+  onFirma: console.log,
 };
 
 export default FielFirma;
