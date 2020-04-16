@@ -14,9 +14,21 @@ import useFirma from '../../hooks/useFirma';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
+    flexWrap: 'wrap',
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: '25ch',
+      boxShadow: '0 3px 5px 2px rgba(127, 127, 127, .3)',
+      width: '260px',
+      borderRadius: 10,
+      padding: '30px 15px 30px 15px',
+      border: 0,
+      color: 'white',
+      textAlign:'center',
+      position: 'relative',
+      height: '80px',
+      display: 'inline',
     },
     '& .MuiAlert-root,.MuiButton-root': {
       margin: theme.spacing(1),
@@ -25,16 +37,43 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     boxShadow: '0 3px 5px 2px rgba(127, 127, 127, .3)',
-    width: '95%',
-    borderRadius: 15,
+    width: '450px',
+    borderRadius: 10,
+    padding: '30px 15px 30px 15px',
+    border: 1,
+    color: 'white',
+    textAlign:'center',
+    position: 'relative',
+    maxHeight: '300px',
+  },
+  button: {
+    margin: theme.spacing(1),
+    borderRadius: 10,
+    boxShadow: '0 3px 5px 2px rgba(127, 127, 127, .3)',
+    width: '145px',
+    borderRadius: 10,
     padding: '30px 15px 30px 15px',
     border: 0,
     color: 'white',
+    textAlign:'center',
+    position: 'relative',
+    height: '80px',
+    display: 'inline',
   },
-  llaveInput:{
+  mensajeFirma: {
     margin: theme.spacing(1),
-    color: 'red',
-  }
+    borderRadius: 10,
+    boxShadow: '0 3px 5px 2px rgba(127, 127, 127, .3)',
+    width: '450px',
+    borderRadius: 10,
+    padding: '30px 15px 30px 15px',
+    border: 0,
+    color: 'white',
+    textAlign:'center',
+    position: 'relative',
+    height: '80px',
+    display: 'inline',
+  },
 }));
 
 function FielFirma({ cadena, proxyUrl, mostrarFirma, confidencial, onFirma }) {
@@ -88,13 +127,12 @@ function FielFirma({ cadena, proxyUrl, mostrarFirma, confidencial, onFirma }) {
           onChanged={setLlavePublicaFile}
           label={
             llavePublicaFileName
-              ? 'Seleccionar otro'
+              ? llavePublicaFileName
               : 'Seleccionar archivo .cer'
           }
           buttonProps={{
             disabled: statusLoading,
           }}
-          className={classes.llaveInput}
         />
         {statusLoading && <CircularProgress />}
         {statusError && (
@@ -128,12 +166,18 @@ function FielFirma({ cadena, proxyUrl, mostrarFirma, confidencial, onFirma }) {
           onChanged={setLlavePrivadaFile}
           label={
             llavePrivadaFileName
-              ? 'Seleccionar otro'
+              ? llavePrivadaFileName
               : 'Seleccionar archivo .key'
           }
           buttonProps={{ color: 'default' }}
         />
-        {llavePrivadaFileName && <FormLabel>{llavePrivadaFileName}</FormLabel>}
+        {llavePrivadaFileName && <FormLabel> 
+          
+          <Alert severity="info">
+            <AlertTitle>{llavePrivadaFileName} </AlertTitle>
+            Cargado!
+          </Alert>
+          </FormLabel>}
       </FormControl>
 
       {llavePrivadaFileName && (
@@ -150,33 +194,41 @@ function FielFirma({ cadena, proxyUrl, mostrarFirma, confidencial, onFirma }) {
         />
       )}
 
+      <div className={classes.button}>
+        <Button
+          variant="contained"
+          disabled={!isValid || !llavePrivadaFileName || !typedContrasena}
+          onClick={() => {
+            setContrasena(typedContrasena);
+          }}
+        >
+          Firmar
+        </Button>
+      </div>
+      
       {llaveError && (
-        <Alert severity="error">
-          Llave privada inválida o contraseña incorrecta
-        </Alert>
+        <div className={classes.mensajeFirma}>
+          <Alert severity="error">
+            Llave privada inválida o contraseña incorrecta
+          </Alert>
+        </div>
       )}
 
-      <Button
-        variant="contained"
-        disabled={!isValid || !llavePrivadaFileName || !typedContrasena}
-        onClick={() => {
-          setContrasena(typedContrasena);
-        }}
-      >
-        Firmar
-      </Button>
-
       {mostrarFirma && firma && (
-        <Alert severity="info">
-          <AlertTitle>Firma</AlertTitle>
-          <code>{firma}</code>
-        </Alert>
+        <div className={classes.mensajeFirma}>
+          <Alert severity="info">
+            <AlertTitle>Firma</AlertTitle>
+            <code>{firma}</code>
+          </Alert>
+        </div>
       )}
 
       {firmaError && (
-        <Alert severity="error">
-          <code>Error al firmar cadena: {firmaError}</code>
-        </Alert>
+        <div className={classes.mensajeFirma}>
+          <Alert severity="error">
+            <code>Error al firmar cadena: {firmaError}</code>
+          </Alert>
+        </div>
       )}
     </form>
   );

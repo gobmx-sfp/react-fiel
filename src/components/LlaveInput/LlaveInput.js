@@ -1,7 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import FileReaderInput from 'react-file-reader-input';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    textDecoration: 'none',
+    padding: '5px',
+    fontWeight: 'bold',
+    fontSize: '12px',
+    color: '#ffffff',
+    backgroundColor: '#9a2049',
+    borderRadius: '6px',
+    border: '2px solid #501026',
+    padding: '10px',
+    width:'95%',
+    '&:hover': {
+      backgroundColor: '#ffffff',
+      color: '#501026',
+    },
+  },
+}));
 
 const tipos = {
   publica: {
@@ -32,6 +51,9 @@ function LlaveInput({
   inputProps,
   children,
 }) {
+
+  const classes = useStyles();
+
   const [{ fileName, content } = {}, setFile] = useState({});
   const { accept, defaultLabel } = tipos[tipo];
 
@@ -62,7 +84,7 @@ function LlaveInput({
       onChange={handleFile}
     >
       {children || (
-        <Button variant="outlined" component="span" {...buttonProps}>
+        <Button variant="contained" component="span" {...buttonProps} className={classes.button}>
           {label || defaultLabel}
         </Button>
       )}
