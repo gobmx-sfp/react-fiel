@@ -45,5 +45,4 @@ module.exports = {
     libraryTarget: 'umd',
   },
   externals,
-  devtool: 'source-map',
 };
