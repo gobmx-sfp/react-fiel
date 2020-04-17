@@ -1,5 +1,9 @@
 const path = require('path');
 
+const externals = Object.keys(
+  require(path.resolve('./package.json')).dependencies || {}
+);
+
 module.exports = {
   entry: './src/index.js',
   module: {
@@ -32,13 +36,14 @@ module.exports = {
   },
   resolve: {
     extensions: ['.scss', '.js', '.json', '.png', '.gif', '.jpg', '.svg'],
-    alias: { 'react-dom': '@hot-loader/react-dom' },
   },
   output: {
-    path: path.resolve(__dirname, 'dist/'),
+    path: path.resolve('dist/'),
     publicPath: '',
     filename: 'react-fiel.js',
     library: '@gobmx-sfp/react-fiel',
     libraryTarget: 'umd',
   },
+  externals,
+  devtool: 'source-map',
 };

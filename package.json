@@ -2,41 +2,28 @@
   "name": "@gobmx-sfp/react-fiel",
   "version": "1.0.0",
   "description": "Librería de componentes React para firma electrónica con FIEL",
+  "private": false,
+  "author": "Secretaría de la Función Pública",
+  "license": "MIT",
   "main": "dist/react-fiel.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
+    "prepare": "npm run build",
     "storybook": "start-storybook -p 9001",
     "docz:dev": "docz dev",
     "docz:build": "docz build "
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gobmx-sfp/react-fiel.git"
-  },
-  "keywords": [
-    "react",
-    "fiel",
-    "firma",
-    "pki"
-  ],
-  "author": "Secretaría de la Función Pública",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/gobmx-sfp/react-fiel/issues"
-  },
-  "homepage": "https://github.com/gobmx-sfp/react-fiel#readme",
   "dependencies": {
     "@gobmx-sfp/firmafiel": "github:gobmx-sfp/firmafiel#v1.1",
-    "@hot-loader/react-dom": "^16.8.6",
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.49",
     "docz": "^2.3.1",
     "prop-types": "^15.7.2",
     "qrcode": "^1.4.4",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-file-reader-input": "^2.0.0",
     "styled-components": "^4.2.1"
   },
@@ -56,5 +43,27 @@
     "url-loader": "^1.1.2",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0"
+  },
+  "files": [
+    "src",
+    "dist",
+    "public",
+    "webpack.config.js",
+    ".babelrc",
+    "doczrc.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gobmx-sfp/react-fiel.git"
+  },
+  "homepage": "https://github.com/gobmx-sfp/react-fiel#readme",
+  "keywords": [
+    "react",
+    "fiel",
+    "firma",
+    "pki"
+  ],
+  "bugs": {
+    "url": "https://github.com/gobmx-sfp/react-fiel/issues"
   }
 }
