@@ -17,7 +17,7 @@ RUN npm install
 # Copiar código necesario para construir documentación
 COPY src src
 COPY public public
-COPY webpack.config.js .babelrc doczrc.js ./
+COPY webpack.config.js babel.config.json doczrc.js ./
 
 # Construir documentación
 RUN npm run docz:build
