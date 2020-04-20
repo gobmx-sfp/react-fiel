@@ -12,7 +12,7 @@
     "prepare": "npm run build",
     "storybook": "start-storybook -p 9001",
     "docz:dev": "docz dev",
-    "docz:build": "docz build "
+    "docz:build": "docz build"
   },
   "dependencies": {
     "@gobmx-sfp/firmafiel": "github:gobmx-sfp/firmafiel#v1.1",
