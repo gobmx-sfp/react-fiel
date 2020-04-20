@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button, makeStyles } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles'
 import FileReaderInput from 'react-file-reader-input';
 
 const useStyles = makeStyles((theme) => ({
