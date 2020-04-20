@@ -23,7 +23,7 @@ COPY webpack.config.js .babelrc doczrc.js ./
 RUN npm run docz:build
 
 # Fase II: Ejecución
-FROM nginx:1.16-alpine
+FROM nginx:1.17-alpine
 
 # Copiar distribuible a directorio configurado en nginx
 COPY --from=build /app/.docz/dist /www
